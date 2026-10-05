@@ -278,6 +278,63 @@ NOTAMs may use domestic and ICAO-style formatting. Common terms include:
 
 **NOTAM rule:** Never infer an airport, effective date, facility status, altitude, or operational restriction that is not supported by the supplied NOTAM and its date context.
 
+## ACARS message structure and vocabulary
+
+ACARS (Aircraft Communications Addressing and Reporting System) is a data-link system that can carry airline operational, ATC, weather, flight-plan, position, maintenance, and other application messages. It is a transport/data-link system, not one single application format.
+
+### Common ACARS envelope fields
+
+A decoder may expose some or all of these fields, depending on the decoder and link path:
+
+- aircraft address / registration
+- mode
+- message label
+- block identifier
+- message sequence number
+- flight identifier
+- message direction / transport metadata
+- application payload text
+
+A common decoded presentation separates the envelope from the payload. Do not require a field that is absent.
+
+### Commonly encountered labels
+
+- `Q0` = ACARS link test
+- `5Z` = airline-designated downlink; payload meaning is application/operator dependent
+- `H1` = messages to/from terminal; multiple application variants exist
+- `5U` = weather request in documented label references
+- `A9` = ATIS report in documented label references
+
+**Important:** ACARS labels are not a universal dictionary. Airline-defined labels can have multiple variants. Decode the payload using label + direction + sublabel + message structure + maintained references rather than guessing from two characters alone.
+
+### Payload/application families
+
+ACARS payloads may carry or reference:
+
+- METAR / TAF / other weather products
+- NOTAM or operational information
+- PIREPs
+- flight-plan messages
+- position and telemetry reports
+- ATIS
+- FANS / CPDLC-related data-link messages
+- maintenance and health-monitoring data
+- airline operational messages
+- free text
+
+### ACARS decoding rules
+
+1. Parse the ACARS envelope first.
+2. Preserve the raw payload separately.
+3. Identify the application from the available evidence.
+4. If the payload contains an inner aviation format, decode that format using its own rules.
+5. Keep ACARS transport fields separate from the inner aviation product.
+6. Treat airline-defined labels as context-dependent.
+7. Do not invent missing envelope fields or payload fields.
+8. If a label or payload format is unfamiliar, state that limitation.
+9. Do not treat every ACARS message as CPDLC. ACARS can carry many application types.
+10. Use current authoritative references plus maintained, validated label research for unusual or airline-specific formats.
+
 ## Global decoding rules
 
 1. Identify the report type before decoding.
