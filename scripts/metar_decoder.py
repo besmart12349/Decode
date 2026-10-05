@@ -33,8 +33,8 @@ def _num(n):
 
 
 def decode_weather(tok):
-    if tok in ("TS", "VCTS"):
-        return "thunderstorm" if tok == "TS" else "thunderstorm in the vicinity"
+    if tok in ("TS", "VCTS", "VCSH"):
+        return {"TS": "thunderstorm", "VCTS": "thunderstorm in the vicinity", "VCSH": "showers in the vicinity"}[tok]
     m = WX_RE.match(tok)
     if not m:
         return None
@@ -162,7 +162,7 @@ def decode_metar(text):
                 return None
         elif t == "NSW":
             wx.append("no significant weather")
-        elif WX_RE.match(t) or t in ("TS", "VCTS"):
+        elif WX_RE.match(t) or t in ("TS", "VCTS", "VCSH"):
             wx.append(decode_weather(t))
         elif t in ("SKC", "CLR"):
             clouds.append(COVER[t])

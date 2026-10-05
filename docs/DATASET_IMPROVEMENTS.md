@@ -1,6 +1,26 @@
 # Decode dataset improvements
 
-## v6 (this change)
+## v8 (current: use `data/decode_102026_v8.jsonl`)
+
+4,044 records. Everything decodable is generated or repaired by deterministic decoders
+(`scripts/metar_decoder.py`, `scripts/taf_notam_acars.py`) and checked by `scripts/validate.py` (0 errors).
+
+- METAR/SPECI full decodes: 1,512 records, 4% Not-provided rate (v5 was 95% across the dataset).
+- TAF: 769 records. Fields = base forecast + issue time; validity and every FM/TEMPO/BECMG/PROB group in Remarks.
+- NOTAM: 492 records (runway/taxiway/navaid/obstacle items, status, effective period).
+- ACARS: 433 records (position reports, embedded METAR/SPECI with envelope preserved, envelope-only headers).
+- Hand-written records repaired: glued Remarks rewritten, misplaced values moved out of Altimeter/Time fields,
+  ICAO codes removed from Station Type (always "Not provided." now).
+- Evals (stations never seen in training): `eval/decode_102026_metar_heldout_v1.jsonl` (60),
+  `eval/decode_102026_multiformat_heldout_v1.jsonl` (100: 40 TAF, 30 NOTAM, 30 ACARS),
+  plus the original 10-case adversarial file.
+
+Known limits: ~20% of records are policy/Q&A prompts with mostly-Not-provided answers (intentional, but do not
+increase this share); NOTAM/ACARS grammars cover a defined subset, not full ICAO/airline formats; no real-world
+METAR/TAF samples are included, all generated data is synthetic.
+
+## v6/v7 history
+
 
 Audit of `data/decode_102026_v5.jsonl` found:
 

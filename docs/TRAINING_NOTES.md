@@ -3,7 +3,7 @@
 ## Root cause (data)
 v5: 92% of records had 9+ of the 10 data fields set to "Not provided." and only 24 of 663 records
 had 6+ fields filled. Always answering "Not provided." was the lowest-loss strategy.
-v7 (`data/decode_102026_v7.jsonl`): 2,524 records, 80% have at least one field filled, 59% have 6+ filled;
+v7 and later (use `data/decode_102026_v8.jsonl`; v7 shown here): 2,524 records, 80% have at least one field filled, 59% have 6+ filled;
 overall Not-provided rate across the 10 data fields is 39% (down from 95%), and the remainder is intentional
 (genuinely missing groups in fragments).
 
@@ -23,3 +23,7 @@ overall Not-provided rate across the 10 data fields is 39% (down from 95%), and 
 The answer format forbids visible reasoning, and a 4B model does not need it for METAR grammar: it is a fixed
 token grammar, and the fix is dense, correct, decoder-verified examples (the v7 generator). If accuracy on
 TAF/ACARS stays low, the next step is the same generate-and-verify loop for those formats, not a thinking trace.
+
+## Per-format Not-provided rates in v8
+METAR/SPECI 4%, TAF 39%, ACARS 56%, NOTAM 97% (no weather fields apply), fragments/Q&A 89%.
+After training, evaluate each format separately with `scripts/score_eval.py`; an overall average hides collapse.
