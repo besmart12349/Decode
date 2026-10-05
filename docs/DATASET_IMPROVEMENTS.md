@@ -27,7 +27,7 @@ Audit of `data/decode_102026_v5.jsonl` found:
 - 21 METAR/SPECI records whose answers disagreed with the report (supplied Airport/Wind/Weather/Clouds/Altimeter marked "Not provided.", or raw tokens copied such as `Wind: 22012G20KT`, `Altimeter: A2992`).
 - 3 exact duplicate prompts.
 - Inconsistent Airport values (invented airport names in some records, bare identifier in others).
-- Run-on, unpunctuated Remarks in TAF/NOTAM/ACARS records (27 over 150 chars) and duplicated phrases. **Not yet repaired**; needs a TAF/NOTAM/ACARS decoder or manual review.
+- Run-on, unpunctuated Remarks in TAF/NOTAM/ACARS records (27 over 150 chars) and duplicated phrases. Repaired in v8.
 
 Changes:
 
