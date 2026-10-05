@@ -1,6 +1,6 @@
-# AeroDecode Aviation Code Reference
+# Decode-(102026) Aviation Code Reference
 
-This reference is the vocabulary baseline for future AeroDecode dataset expansion. It is intentionally organized by report section rather than as one undifferentiated abbreviation list.
+This reference is the vocabulary baseline for future Decode-(102026) dataset expansion. It is intentionally organized by report section rather than as one undifferentiated abbreviation list.
 
 > **Source policy:** Prefer current FAA/AIM, FAA Aviation Weather Handbook, FAA Surface Weather Observing guidance, and current FAA contractions for validation. Aviation codes can be context-dependent, and NOTAM formatting is evolving toward ICAO compliance. Do not treat this list as permission to guess an unfamiliar code.
 
@@ -350,4 +350,4 @@ ACARS payloads may carry or reference:
 
 ## Maintenance policy
 
-This file is a living vocabulary reference. Future dataset expansion should add newly encountered or newly validated codes here rather than creating isolated definitions inside individual examples. When a code's meaning depends on report type, generation system, location, or version of the standard, record that context explicitly.
+This file is a living vocabulary reference. Future Decode-(102026) dataset expansion should add newly encountered or newly validated codes here rather than creating isolated definitions inside individual examples. When a code's meaning depends on report type, generation system, location, or version of the standard, record that context explicitly.
